@@ -3,10 +3,33 @@
 <head>
   <meta charset="UTF-8" />
   <title>Receipt</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+    .receipt {
+      border: 1px solid #ccc;
+      padding: 20px;
+      max-width: 400px;
+    }
+    .receipt h2 {
+      text-align: center;
+    }
+    .receipt p {
+      margin: 5px 0;
+    }
+    .receipt .total {
+      font-weight: bold;
+      margin-top: 10px;
+    }
+  </style>
 </head>
 <body>
   <h1>Store Receipt</h1>
-  <p>View the item prices and total below in the browser console.</p>
+  <div class="receipt" id="receipt-output">
+    <!-- Receipt details will be inserted here -->
+  </div>
 
   <script type="text/javascript">
     // PART 1: Declare variables for item prices
@@ -24,16 +47,18 @@
     // PART 4: Calculate total
     let total = subtotal + tax;
 
-    // PART 5: Log a receipt to the console
-    console.log("🧾 Store Receipt");
-    console.log("----------------------");
-    console.log("Apples:  $" + apples.toFixed(2));
-    console.log("Bananas: $" + bananas.toFixed(2));
-    console.log("Oranges: $" + oranges.toFixed(2));
-    console.log("----------------------");
-    console.log("Subtotal: $" + subtotal.toFixed(2));
-    console.log("Tax (7%): $" + tax.toFixed(2));
-    console.log("Total:    $" + total.toFixed(2));
+    // PART 5: Display the receipt on the page
+    let receiptDiv = document.getElementById("receipt-output");
+    receiptDiv.innerHTML = `
+      <h2>🧾 Store Receipt</h2>
+      <p>Apples: $${apples.toFixed(2)}</p>
+      <p>Bananas: $${bananas.toFixed(2)}</p>
+      <p>Oranges: $${oranges.toFixed(2)}</p>
+      <hr>
+      <p>Subtotal: $${subtotal.toFixed(2)}</p>
+      <p>Tax (7%): $${tax.toFixed(2)}</p>
+      <p class="total">Total: $${total.toFixed(2)}</p>
+    `;
   </script>
 </body>
 </html>
