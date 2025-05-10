@@ -1,109 +1,74 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Groceries (CSV)</title>
+  <meta charset="UTF-8" />
+  <title>Grocery List</title>
+  <script src="https://cdn.jsdelivr.net/npm/papaparse@5.3.2/papaparse.min.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+    h1 {
+      color: #2c3e50;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+    th, td {
+      padding: 10px;
+      border: 1px solid #ccc;
+      text-align: left;
+    }
+    th {
+      background-color: #f0f8ff;
+    }
+  </style>
 </head>
 <body>
+  <h1>Grocery List</h1>
+  <p>Loading grocery items from a CSV file...</p>
+  <table id="grocery-table">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Department</th>
+        <th>Aisle</th>
+        <th>Price</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
 
-    <h1>Groceries (CSV)</h1>
-    <a href="../index.html">Home</a>
+  <script type="text/javascript">
+    const tableBody = document.querySelector("#grocery-table tbody");
 
-    <h2>Dataset Information</h2>
-    <p>For this exercise, we will use a CSV file called
-        <a href="https://raw.githubusercontent.com/prof-rossetti/intro-to-python/main/data/products.csv">"products.csv"</a>
-        that has been uploaded to the Internet.
-        The CSV file contains an inventory of grocery store products.
-        This data was adapted from an open source dataset provided by Instacart in 2017.
-    </p>
+    Papa.parse("https://gist.githubusercontent.com/prof-rossetti/7d5c476879872b4e17e96d37b480f23d/raw/groceries.csv", {
+      download: true,
+      header: true,
+      complete: function(results) {
+        const items = results.data;
 
-    <h2>Part 1</h2>
-    <p>
-        Write JavaScript code to answer the questions below.
-        Log each of the answers to the console.
+        items.forEach(item => {
+          const row = document.createElement("tr");
 
-        <ol type="A">
-            <li>Fetch the grocery product data using the provided URL.</li>
-            <li>Display the number of products (i.e. 20).</li>
-            <li>Loop through the products and display the name and price of each. Format the prices as currency using a dollar sign and rounding to two decimal places.
-                <strong>HINT:</strong> you may need to convert the prices to floats before formatting.
-            </li>
-            <hr>
-            <li>Arrive at a unique list of department names, and store them in a variable called <code>departments</code>.
-                <strong>HINT:</strong> loop through the products,
-                and conditionally add that product's department name to the <code>departments</code> array,
-                only if it is not already included in the array.
-            </li>
-            <li>Display the number of unique departments (i.e. 10).</li>
-            <li>Loop through the array of unique departments and display the name of each, formatted as all upper-case.</li>
-            <hr>
-            <li>Use a filter operation to identify the products that have a department name of "beverages", and store them in a variable called <code>beverages</code>.</li>
-            <li>Display the number of beverage products (i.e. 5).</li>
-            <li>Display the average price of all the beverage products, formatted as as currency using a dollar sign and rounding to two decimal places (i.e. "$3.04").</li>
-        </ol>
-    </p>
+          row.innerHTML = `
+            <td>${item["name"]}</td>
+            <td>${item["department"]}</td>
+            <td>${item["aisle"]}</td>
+            <td>$${parseFloat(item["price"]).toFixed(2)}</td>
+          `;
 
-
-    <h2>Part 2</h2>
-    <p>
-        Write JavaScript code to answer the questions below.
-        Display the answers on the page in the designated areas.
-
-        <ol type="A">
-            <li>Sort the products by name in ascending order.</li>
-            <li>Loop through all the sorted products and display the name and price of each, in a separate list item.
-                Use the designated <code>ul</code> element below.
-                Format the prices as currency using a dollar sign and rounding to two decimal places.
-            </li>
-        </ol>
-    </p>
-
-    <hr>
-    <h2>Display</h2>
-
-    <p>Groceries:</p>
-    <ul id="display-groceries">
-    </ul>
-
-
-
-    <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
-    <script type="text/javascript">
-
-        function formatUSD(price) {
-            return `$${price.toFixed(2)}`
-        }
-
-        var requestUrl = "https://raw.githubusercontent.com/prof-rossetti/intro-to-python/main/data/products.csv"
-
-        d3.csv(requestUrl).then(function(data) {
-            console.log("DATA:", data)
-            var products = data
-
-            console.log("---------------------")
-            console.log("PART 1...")
-
-
-
-
-
-
-            console.log("---------------------")
-            console.log("PART 2...")
-
-
-
-
-
-
-
-
-
-
-            }).catch(function(error) {
-                console.error("ERROR:", error)
-        })
-
-    </script>
+          tableBody.appendChild(row);
+        });
+      },
+      error: function(err) {
+        console.error("Failed to fetch CSV:", err);
+        tableBody.innerHTML = '<tr><td colspan="4">Failed to load data.</td></tr>';
+      }
+    });
+  </script>
 </body>
 </html>
