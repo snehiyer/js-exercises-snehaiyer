@@ -1,88 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Temperature Conversion</title>
+  <meta charset="UTF-8">
+  <title>Temperature Converter</title>
 </head>
 <body>
-    <h1>Temperature Conversion</h1>
-    <a href="../index.html">Home</a>
+  <h1>Temperature Converter</h1>
+  <p>This program converts a temperature in Celsius to Fahrenheit.</p>
 
-    <h2>Part 1</h2>
-    <p>
-        The International Space Station periodically sends back temperature readings from space,
-        and recently sent back a report that the temperature was around -270 degrees Celsius.
-    </p>
-    <p>
-        Write JavaScript code to model the Celsius temperature concept in a variable,
-        convert this Celsius temperature to Fahrenheit,
-        and then log both temperatures to the console.
-    </p>
+  <script type="text/javascript">
+    // PART 1: Declare a Celsius temperature
+    let celsius = 25;
 
-    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <p>
-        <strong>HINT:</strong> the formula for temperature conversion is:
-        <br>
-        \[
-            F = \frac{9}{5}C + 32
-        \]
-    </p>
+    // PART 2: Convert it to Fahrenheit
+    let fahrenheit = (celsius * 9 / 5) + 32;
 
-    <hr>
-    <h2>Part 2</h2>
-    <p>
-        Create a JavaScript function called <code>calculateTemp</code>
-        that takes an input parameter called <code>tempC</code> (the Celsius temperature),
-        and returns the corresponding temperature in Fahrenheit.
-        Invoke the function, passing in a Celsius temperature of -270 degrees,
-        and store the resulting Fahrenheit temperature in a variable.
-        Log both temperatures to the console.
-    </p>
-
-    <hr>
-    <h2>Part 3</h2>
-    <p>
-        See the numeric Celsius temperature input box and "Calculate" button below.
-        Write JavaScript code to respond to button click events,
-        and when the button is clicked, the program should
-        convert this Celsius temperature to Fahrenheit (using the function from Part 2),
-        and finally then display the Fahrenheit temperature in the designated span element.
-    </p>
-
-    <label>Celsius Temperature:</label>
-    <input id="input-temp-c" type="number" placeholder="-270" value="-270"></input>
-    <button id="calculate">Calculate</button>
-
-    <br>
-    <label>Fahrenheit Temperature:</label>
-    <span id="display-temp-f">TODO</span>
-
-
-    <script type="text/javascript">
-
-        console.log("---------------------")
-        console.log("PART 1...")
-
-
-
-
-
-        console.log("---------------------")
-        console.log("PART 2...")
-
-
-
-
-
-
-        console.log("---------------------")
-        console.log("PART 3...")
-
-
-
-
-
-    </script>
+    // PART 3: Log both temperatures
+    console.log("Celsius temperature:", celsius + "°C");
+    console.log("Fahrenheit temperature:", fahrenheit + "°F");
+  </script>
 </body>
 </html>
